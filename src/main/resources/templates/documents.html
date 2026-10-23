@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Documents | TrustVault</title>
+</head>
+<body>
+    <h1>My TrustVault Documents</h1>
+
+    <p th:if="${success}" th:text="${success}"></p>
+
+    <h2>Create a document record</h2>
+
+    <form th:action="@{/documents}" method="post">
+        <label for="title">Document title:</label>
+        <input type="text" id="title" name="title"
+               required maxlength="100">
+        <br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"
+                  maxlength="500"></textarea>
+        <br><br>
+
+        <button type="submit">Create Document</button>
+    </form>
+
+    <hr>
+
+    <h2>My Documents</h2>
+
+    <p th:if="${#lists.isEmpty(documents)}">
+        You have no documents yet.
+    </p>
+
+    <ul>
+        <li th:each="doc : ${documents}">
+            <strong th:text="${doc.title}">Document title</strong>
+            <span th:text="${doc.description}"></span>
+            <span> (ID: <span th:text="${doc.id}"></span>)</span>
+        </li>
+    </ul>
+
+    <p><a th:href="@{/}">Back to Home</a></p>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Log Out</button>
+    </form>
+</body>
+</html>
